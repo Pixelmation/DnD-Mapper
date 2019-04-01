@@ -9,7 +9,7 @@ public class CreateNewShape : MonoBehaviour {
     public List<GameObject> vertexVisuals;
 
     public GameObject vertexPoint;
-    public Camera cameraBitch;
+    public Camera maincameraLad;
 
     bool enableVertexTracking = false;
     bool ignoreFirst = true;
@@ -21,7 +21,7 @@ public class CreateNewShape : MonoBehaviour {
     void Start () {
         List<Vector3> verticies = new List<Vector3>();
         List<GameObject> vertexVisuals = new List<GameObject>();
-        cameraBitch = Camera.main;
+        maincameraLad = Camera.main;
     }
 
     // Update is called once per frame
@@ -32,8 +32,8 @@ public class CreateNewShape : MonoBehaviour {
             {
                 vertices.Add(Input.mousePosition);
                 print("added vertex at: " + Input.mousePosition);
-                GameObject circleBitch = Instantiate(vertexPoint, cameraBitch.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y, .5f)), Quaternion.Euler(0,0,0));
-                vertexVisuals.Add(circleBitch);
+                GameObject circleLad = Instantiate(vertexPoint, maincameraLad.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y, .5f)), Quaternion.Euler(0,0,0));
+                vertexVisuals.Add(circleLad);
 
                 if (vertices.Count >= 3)
                 {
@@ -63,7 +63,7 @@ public class CreateNewShape : MonoBehaviour {
             //print("vectors are close enough. closing polygon");
             for (int i = 0; i < vertices.Count - 1; i++)
             {
-                vertices[i] = cameraBitch.ScreenToWorldPoint(new Vector3(vertices[i].x, vertices[i].y, -.05f));
+                vertices[i] = maincameraLad.ScreenToWorldPoint(new Vector3(vertices[i].x, vertices[i].y, -.05f));
                 print("Vertex " + (i+1) + ": (" + vertices[i].x + ", " + vertices[i].y + ")");
 
             }
@@ -91,12 +91,20 @@ public class CreateNewShape : MonoBehaviour {
 
     void CreateMesh(List<Vector3> source)
     {
-        Vector2[] vertices2D = new Vector2[source.Count];
-        //print("2D length: " + vertices2D.Length);
+        //made -1 because of faulty extra value — bandaid solution
+        Vector2[] vertices2D = new Vector2[source.Count - 1];
+        print("Test: " + source.Count);
+        for (int i = 0; i < (source.Count); i++)
+        {
+            print("Added Vertex " + (i + 1) + ": (" + source[i].x + ", " + source[i].y + ")");
+        }
+
+        print("2D length: " + vertices2D.Length);
         for (int i = 0; i < (source.Count - 1); i++)
         {
             vertices2D[i] = new Vector2(source[i].x, source[i].y);
             print("Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
+            
 
         }
 
@@ -106,9 +114,11 @@ public class CreateNewShape : MonoBehaviour {
 
         //Create the Vector3 vertices
         Vector3[] vertices3D = new Vector3[vertices2D.Length];
+        print("2D length: " + vertices2D.Length);
         for (int i = 0; i < vertices3D.Length; i++)
         {
             vertices3D[i] = new Vector3(vertices2D[i].x, vertices2D[i].y, -.05f);
+            print("Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
         }
 
         //create the mesh
