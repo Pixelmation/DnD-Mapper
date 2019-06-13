@@ -96,14 +96,14 @@ public class CreateNewShape : MonoBehaviour {
         print("Test: " + source.Count);
         for (int i = 0; i < (source.Count); i++)
         {
-            print("Added Vertex " + (i + 1) + ": (" + source[i].x + ", " + source[i].y + ")");
+            print("111Added Vertex " + (i + 1) + ": (" + source[i].x + ", " + source[i].y + ")");
         }
 
         print("2D length: " + vertices2D.Length);
         for (int i = 0; i < (source.Count - 1); i++)
         {
             vertices2D[i] = new Vector2(source[i].x, source[i].y);
-            print("Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
+            print("222Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
             
 
         }
@@ -118,7 +118,7 @@ public class CreateNewShape : MonoBehaviour {
         for (int i = 0; i < vertices3D.Length; i++)
         {
             vertices3D[i] = new Vector3(vertices2D[i].x, vertices2D[i].y, -.05f);
-            print("Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
+            print("333Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
         }
 
         //create the mesh
