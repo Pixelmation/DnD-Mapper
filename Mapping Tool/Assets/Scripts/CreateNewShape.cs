@@ -48,6 +48,7 @@ public class CreateNewShape : MonoBehaviour {
 
 	}
 
+    ///checks if the button is pressed
     void OnMouseDown()
     {
         enableVertexTracking = true;
@@ -57,7 +58,7 @@ public class CreateNewShape : MonoBehaviour {
     void ValidPolygonCheck()
     {
         float endDistance = GetDistanceBetweenVectors(vertices[0], vertices[vertices.Count - 1]);
-        //print("distance between first and last vertex: " + endDistance);
+        //begins closing the polygon when the last vertex pressed is close enough to the first
         if (endDistance <= 20)
         {
             //print("vectors are close enough. closing polygon");
@@ -94,19 +95,17 @@ public class CreateNewShape : MonoBehaviour {
         //made -1 because of faulty extra value — bandaid solution
         Vector2[] vertices2D = new Vector2[source.Count - 1];
         print("Test: " + source.Count);
-        for (int i = 0; i < (source.Count); i++)
-        {
-            print("111Added Vertex " + (i + 1) + ": (" + source[i].x + ", " + source[i].y + ")");
-        }
+        //for (int i = 0; i < (source.Count); i++)
+        //{
+        //    print("Added Vertex " + (i + 1) + ": (" + source[i].x + ", " + source[i].y + ")");
+        //}
 
         print("2D length: " + vertices2D.Length);
-        for (int i = 0; i < (source.Count - 1); i++)
-        {
-            vertices2D[i] = new Vector2(source[i].x, source[i].y);
-            print("222Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
-            
-
-        }
+        //for (int i = 0; i < (source.Count - 1); i++)
+        //{
+        //    vertices2D[i] = new Vector2(source[i].x, source[i].y);
+        //    print("Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
+        //}
 
         //use triangulator to get indicies for creating triangles
         Triangulator tr = new Triangulator(vertices2D);
