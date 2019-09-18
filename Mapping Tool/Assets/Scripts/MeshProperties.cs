@@ -4,21 +4,45 @@ using UnityEngine;
 
 public class MeshProperties : MonoBehaviour {
 
-    Renderer rend;
+    //Instantiations for mesh creation
+    public GameObject thisMesh;
+    public PolygonCollider2D newCollider;
+    Vector2[] vertices2D;
+    Vector3[] meshPoints;
+
+    //Instantiations for User Input
+    string name = "New Area";
 
     // Use this for initialization
-	void Start () {
-        rend = GetComponent<Renderer>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Start () {
+        newCollider = GetComponent<PolygonCollider2D>();
+        meshPoints = thisMesh.GetComponent<MeshFilter>().mesh.vertices;
+        vertices2D = new Vector2[meshPoints.Length];
+        for (int i = 0; i < meshPoints.Length; i++)
+        {
+            vertices2D[i] = new Vector2(meshPoints[i].x, meshPoints[i].y);
+        }
+        newCollider.points = vertices2D;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
-    private void OnMouseOver()
+    void OnMouseEnter()
     {
-        rend.material.shader = Shader.Find("_color");
-        rend.material.SetColor("_color", Color.red);
+        GetComponent<Renderer>().material.SetColor("_Color", new Color32(255, 0, 0, 50));
     }
+
+    void OnMouseExit()
+    {
+        GetComponent<Renderer>().material.SetColor("_Color", new Color32(78, 161, 72, 50));
+    }
+
+    private void OnMouseDown()
+    {
+        
+    }
+
 }

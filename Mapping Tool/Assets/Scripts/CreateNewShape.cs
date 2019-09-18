@@ -32,7 +32,7 @@ public class CreateNewShape : MonoBehaviour {
             {
                 vertices.Add(Input.mousePosition);
                 print("added vertex at: " + Input.mousePosition);
-                GameObject circleLad = Instantiate(vertexPoint, maincameraLad.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y, .5f)), Quaternion.Euler(0,0,0));
+                GameObject circleLad = Instantiate(vertexPoint, maincameraLad.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 55f)), Quaternion.Euler(0,0,0));
                 vertexVisuals.Add(circleLad);
 
                 if (vertices.Count >= 3)
@@ -53,6 +53,12 @@ public class CreateNewShape : MonoBehaviour {
     {
         enableVertexTracking = true;
         ignoreFirst = true;
+        this.GetComponent<Renderer>().material.SetColor("_Color", new Color32(255, 0, 0, 255));
+    }
+
+    private void OnMouseUp()
+    {
+        this.GetComponent<Renderer>().material.SetColor("_Color", new Color32(0, 240, 255, 255));
     }
 
     void ValidPolygonCheck()
@@ -95,17 +101,17 @@ public class CreateNewShape : MonoBehaviour {
         //made -1 because of faulty extra value — bandaid solution
         Vector2[] vertices2D = new Vector2[source.Count - 1];
         print("Test: " + source.Count);
-        //for (int i = 0; i < (source.Count); i++)
-        //{
-        //    print("Added Vertex " + (i + 1) + ": (" + source[i].x + ", " + source[i].y + ")");
-        //}
+        for (int i = 0; i < (source.Count); i++)
+        {
+            print("111Added Vertex " + (i + 1) + ": (" + source[i].x + ", " + source[i].y + ")");
+        }
 
         print("2D length: " + vertices2D.Length);
-        //for (int i = 0; i < (source.Count - 1); i++)
-        //{
-        //    vertices2D[i] = new Vector2(source[i].x, source[i].y);
-        //    print("Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
-        //}
+        for (int i = 0; i < (source.Count - 1); i++)
+        {
+            vertices2D[i] = new Vector2(source[i].x, source[i].y);
+            print("222Added Vertex " + (i + 1) + ": (" + vertices2D[i].x + ", " + vertices2D[i].y + ")");
+        }
 
         //use triangulator to get indicies for creating triangles
         Triangulator tr = new Triangulator(vertices2D);
