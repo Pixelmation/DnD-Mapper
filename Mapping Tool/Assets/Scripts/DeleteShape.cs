@@ -21,7 +21,7 @@ public class DeleteShape : MonoBehaviour
         if (searching && Input.GetMouseButtonDown(0))
         {
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.transform.position, Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (hit)
             {
