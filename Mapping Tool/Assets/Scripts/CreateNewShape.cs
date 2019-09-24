@@ -49,16 +49,10 @@ public class CreateNewShape : MonoBehaviour {
 	}
 
     ///checks if the button is pressed
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         enableVertexTracking = true;
         ignoreFirst = true;
-        this.GetComponent<Renderer>().material.SetColor("_Color", new Color32(255, 0, 0, 255));
-    }
-
-    private void OnMouseUp()
-    {
-        this.GetComponent<Renderer>().material.SetColor("_Color", new Color32(0, 240, 255, 255));
     }
 
     void ValidPolygonCheck()

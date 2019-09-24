@@ -12,7 +12,7 @@ public class MeshProperties : MonoBehaviour {
     bool deletable;
 
     //Instantiations for User Input
-    string newName = "New Area";
+    string internalName = "New Area";
 
     // Use this for initialization
     void Start () {

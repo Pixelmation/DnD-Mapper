@@ -21,18 +21,16 @@ public class DeleteShape : MonoBehaviour
         if (searching && Input.GetMouseButtonDown(0))
         {
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
             //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (hit)
             {
-                //if (hit.collider.gameObject.name == "Mesh Temp (clone)")
-                //{
-                    print(hit.collider.gameObject.name);
-
-                    searching = false;
-                
-                //}
+                if (hit.collider.gameObject.name == "meshTemp(Clone)")
+                {
+                    Destroy(hit.collider.gameObject);                
+                }
             }            
+                    searching = false;
         }
     }
 
@@ -47,9 +45,4 @@ public class DeleteShape : MonoBehaviour
         this.GetComponent<Renderer>().material.SetColor("_Color", new Color32(0, 240, 255, 255));
         searching = true;
     }
-
-    //GameObject GetClickedGameObject()
-    //{
-    //
-    //}
 }
