@@ -13,7 +13,7 @@ public class NewShape : MonoBehaviour
     public GameObject vertexPoint;
     public Camera maincameraLad;
 
-    bool enableVertexTracking = true;
+    bool enableVertexTracking;
     bool ignoreFirst = true;
 
     public GameObject meshTemplate;
@@ -24,28 +24,35 @@ public class NewShape : MonoBehaviour
         List<Vector3> verticies = new List<Vector3>();
         List<GameObject> vertexVisuals = new List<GameObject>();
         maincameraLad = Camera.main;
+        enableVertexTracking = true;
 
+        StartCoroutine("PolygonLoop");
+    }
+
+    IEnumerator PolygonLoop()
+    {
         while (enableVertexTracking)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 //if (!ignoreFirst)
                 //{
-                    vertices.Add(Input.mousePosition);
-                    print("added vertex at: " + Input.mousePosition);
-                    GameObject circleLad = Instantiate(vertexPoint, maincameraLad.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 55f)), Quaternion.Euler(0, 0, 0));
-                    vertexVisuals.Add(circleLad);
+                vertices.Add(Input.mousePosition);
+                print("added vertex at: " + Input.mousePosition);
+                GameObject circleLad = Instantiate(vertexPoint, maincameraLad.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 55f)), Quaternion.Euler(0, 0, 0));
+                vertexVisuals.Add(circleLad);
 
-                    if (vertices.Count >= 3)
-                    {
-                        ValidPolygonCheck();
-                    }
+                if (vertices.Count >= 3)
+                {
+                    ValidPolygonCheck();
+                }
                 //}
                 //else
                 //{
                 //    ignoreFirst = false;
                 //}
             }
+            yield return null;
         }
     }
 

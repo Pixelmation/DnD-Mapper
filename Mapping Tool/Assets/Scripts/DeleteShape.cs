@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class DeleteShape : MonoBehaviour
 {
-    public bool searching;
-    Ray ray;
+    public bool searching = false;
     int layerMask = 1 << 8;
 
     // Start is called before the first frame update
     void Start()
     {
         searching = false;
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (searching && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
 
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
@@ -34,15 +32,31 @@ public class DeleteShape : MonoBehaviour
         }
     }
 
-    ///checks if the button is pressed
-    void OnMouseDown()
+    public void DeleteObject()
     {
-        this.GetComponent<Renderer>().material.SetColor("_Color", new Color32(255, 0, 0, 255));
+        searching = true;
+
+        StartCoroutine("DeleteCheck");
     }
 
-    private void OnMouseUp()
+    IEnumerator DeleteCheck()
     {
-        this.GetComponent<Renderer>().material.SetColor("_Color", new Color32(0, 240, 255, 255));
-        searching = true;
+        while (searching)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
+                //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (hit)
+                {
+                    if (hit.collider.gameObject.name == "meshTemp(Clone)")
+                    {
+                        Destroy(hit.collider.gameObject);
+                    }
+                }
+                searching = false;
+            }
+            yield return null;
+        }
     }
 }
