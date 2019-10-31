@@ -10,6 +10,7 @@ public class ViewportManager : MonoBehaviour
     float zoomMax;
     float zoomMin;
     Vector2 mousePos;
+    GameObject content;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class ViewportManager : MonoBehaviour
         viewCollider = picViewport.GetComponent<Collider2D>();
         zoomMin = viewCollider.bounds.size.x / 2;
         mousePos = Vector3.zero;
+        //content = picViewport.GetComponent<Content>
     }
 
     // Update is called once per frame
